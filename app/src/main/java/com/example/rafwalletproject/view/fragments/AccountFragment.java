@@ -1,66 +1,69 @@
 package com.example.rafwalletproject.view.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rafwalletproject.R;
+import com.example.rafwalletproject.viewmodels.SharedFinancesViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AccountFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AccountFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private SharedFinancesViewModel sharedFinancesViewModel;
 
     public AccountFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AccountFragment newInstance(String param1, String param2) {
-        AccountFragment fragment = new AccountFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        super(R.layout.fragment_account);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        sharedFinancesViewModel = new ViewModelProvider(requireActivity()).get(SharedFinancesViewModel.class);
+        init(view);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+    private void init(View view){
+        initView(view);
+        initObservers(view);
     }
+
+    private void initView(View view) {
+        view.findViewById(R.id.txtAddD).setOnClickListener(v -> {
+            sharedFinancesViewModel.addFinance("text", "txt", 100, false);
+        });
+    }
+
+    private void initObservers(View view) {
+        // Kada korisnik unese tekst i potvrdi unos, zelimo da prikazemo taj unos
+        sharedFinancesViewModel.getIncomeSum().observe(getViewLifecycleOwner(), (income) -> {
+            TextView txtIncome = view.findViewById(R.id.txtIncome);
+            txtIncome.setText(income.toString());
+        });
+        sharedFinancesViewModel.getExpensesSum().observe(getViewLifecycleOwner(), (expense) -> {
+            TextView txtExpense = view.findViewById(R.id.txtExpense);
+            sharedFinancesViewModel.getExpensesSum().getValue();
+            txtExpense.setText(expense.toString());
+        });
+        sharedFinancesViewModel.getTotalSum().observe(getViewLifecycleOwner(), (total) -> {
+            TextView txtTotalDifference = view.findViewById(R.id.txtTotalDifference);
+            Toast.makeText(requireActivity(), String.valueOf(txtTotalDifference.getCurrentTextColor()), Toast.LENGTH_SHORT).show();
+            txtTotalDifference.setText(total.toString());
+            if(total >= 0) {
+                txtTotalDifference.setTextColor(Color.GREEN);
+            }else{
+                txtTotalDifference.setTextColor(Color.RED);
+            }
+        });
+    }
+
 }

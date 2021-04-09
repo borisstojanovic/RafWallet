@@ -32,17 +32,9 @@ public class UserProfileFragment extends Fragment {
 
     //Code
     private static String PREFERENCES_NAME = "loginPreferences";
-    private static int REQUEST_CODE = 111;
 
     public UserProfileFragment(){
         super(R.layout.fragment_user_profile);
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Timber.e("ON CREATE");
     }
 
     @Nullable
@@ -57,18 +49,6 @@ public class UserProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         init(view);
         Timber.e("ON VIEW CREATED");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Timber.e("ON DESTROY VIEW");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Timber.e("ON DESTROY");
     }
 
     private ActivityResultLauncher<Intent> editActivityResultLauncher;

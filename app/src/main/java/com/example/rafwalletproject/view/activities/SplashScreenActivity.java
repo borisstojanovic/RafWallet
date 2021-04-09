@@ -17,7 +17,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
         checkLogin();
     }
 
@@ -27,6 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void checkLogin(){
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
         boolean loggedIn = sharedPreferences.getBoolean("loggedIn", false);
+        /*
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -41,7 +41,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_TIME_OUT);
-        /*
+
+         */
         if(loggedIn){
             Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
             startActivity(i);
@@ -50,6 +51,5 @@ public class SplashScreenActivity extends AppCompatActivity {
             startActivity(i);
         }
         finish();
-        */
     }
 }

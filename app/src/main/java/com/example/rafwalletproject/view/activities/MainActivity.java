@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private void initNavigation() {
         ((BottomNavigationView)findViewById(R.id.bottomNavigation)).setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.navigation_1: viewPager.setCurrentItem(PagerAdapter.FRAGMENT_1, true); break;
-                case R.id.navigation_2: viewPager.setCurrentItem(PagerAdapter.FRAGMENT_2, true); break;
-                case R.id.navigation_3: viewPager.setCurrentItem(PagerAdapter.FRAGMENT_3, true); break;
+                case R.id.navigation_1: viewPager.setCurrentItem(PagerAdapter.FRAGMENT_1, false); break;
+                case R.id.navigation_2: viewPager.setCurrentItem(PagerAdapter.FRAGMENT_2, false); break;
+                case R.id.navigation_3: viewPager.setCurrentItem(PagerAdapter.FRAGMENT_3, false); break;
             }
             return true;
         });

@@ -12,12 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RafWalletProject">
-        <activity android:name=".view.activities.EditProfileActivity"></activity>
+        <activity android:name=".view.activities.EditProfileActivity" />
         <activity android:name=".view.activities.LoginActivity" />
-        <activity android:name=".view.activities.SplashScreenActivity">
+        <activity android:name=".view.activities.SplashScreenActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
