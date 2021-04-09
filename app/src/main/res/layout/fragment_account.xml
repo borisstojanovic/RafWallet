@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
+        android:textColor="#FF0000"
         app:layout_constraintStart_toEndOf="@+id/txtExpensesLabel"
         app:layout_constraintTop_toBottomOf="@+id/txtIncome" />
 
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="150dp"
+        android:textColor="#00FF00"
         app:layout_constraintStart_toEndOf="@+id/txtIncomeLabel"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="50dp"
-        android:text="Total Expenses: "
+        android:textColor="#FF0000"
+        android:text="@string/total_expenses"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtIncomeLabel" />
 
@@ -40,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="150dp"
-        android:text="Total income:"
+        android:text="@string/total_income"
+        android:textColor="#00FF00"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="50dp"
-        android:text="Total Difference"
+        android:text="@string/total_difference"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtExpensesLabel" />
 

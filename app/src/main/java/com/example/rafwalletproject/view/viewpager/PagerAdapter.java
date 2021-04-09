@@ -7,10 +7,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.rafwalletproject.view.fragments.AccountFragment;
+import com.example.rafwalletproject.view.fragments.TabbedListsFragment;
 import com.example.rafwalletproject.view.fragments.UserProfileFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {
-    private final int ITEM_COUNT = 2;
+    private final int ITEM_COUNT = 4;
     public static final int FRAGMENT_1 = 0;
     public static final int FRAGMENT_2 = 1;
     public static final int FRAGMENT_3 = 2;
@@ -25,8 +26,8 @@ public class PagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case FRAGMENT_1: fragment = new AccountFragment(); break;
-            //case FRAGMENT_2: fragment = new UserProfileFragment(); break;
-            default: fragment = new UserProfileFragment();break;
+            case FRAGMENT_2: fragment = new UserProfileFragment(); break;
+            default: fragment = new TabbedListsFragment();break;
         }
         return fragment;
     }

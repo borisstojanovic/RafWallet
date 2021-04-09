@@ -56,7 +56,6 @@ public class AccountFragment extends Fragment {
         });
         sharedFinancesViewModel.getTotalSum().observe(getViewLifecycleOwner(), (total) -> {
             TextView txtTotalDifference = view.findViewById(R.id.txtTotalDifference);
-            Toast.makeText(requireActivity(), String.valueOf(txtTotalDifference.getCurrentTextColor()), Toast.LENGTH_SHORT).show();
             txtTotalDifference.setText(total.toString());
             if(total >= 0) {
                 txtTotalDifference.setTextColor(Color.GREEN);
