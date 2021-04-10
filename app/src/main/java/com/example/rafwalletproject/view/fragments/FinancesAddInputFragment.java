@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,11 +17,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.rafwalletproject.R;
 import com.example.rafwalletproject.viewmodels.FinancesViewModel;
 
-public class FinancesEditFragment extends Fragment {
+public class FinancesAddInputFragment extends Fragment {
     private FinancesViewModel financesViewModel;
 
-    public FinancesEditFragment() {
-        super(R.layout.fragment_finances_edit);
+    public FinancesAddInputFragment() {
+        super(R.layout.fragment_finances_add_input);
     }
 
     @Override
@@ -31,11 +34,10 @@ public class FinancesEditFragment extends Fragment {
     private void init(View view){
         initView(view);
         initListeners(view);
-        initObservers(view);
     }
 
     private void initListeners(View view) {
-        EditText txtTitle = view.findViewById(R.id.edtFinanceTitle);
+        EditText txtTitle = view.findViewById(R.id.edtAddFinanceTitle);
         txtTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -52,7 +54,7 @@ public class FinancesEditFragment extends Fragment {
 
             }
         });
-        EditText txtQuantity = view.findViewById(R.id.edtFinanceQuantity);
+        EditText txtQuantity = view.findViewById(R.id.edtAddFinanceQuantity);
         txtQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -69,16 +71,29 @@ public class FinancesEditFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { }
         });
+        Spinner spinner = view.findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String spinnerStr = (String) spinner.getItemAtPosition(position);
+                if(spinnerStr.toLowerCase().equals("income")){
+                    financesViewModel.setIsIncome(true);
+                }else{
+                    financesViewModel.setIsIncome(false);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initView(View view) {
-        EditText txtTitle = view.findViewById(R.id.edtFinanceTitle);
-        txtTitle.setText(financesViewModel.getTitle().getValue());
-        EditText txtQuantity = view.findViewById(R.id.edtFinanceQuantity);
-        txtQuantity.setText(String.valueOf(financesViewModel.getQuantity().getValue()));
-    }
-
-    private void initObservers(View view) {
-
+        Spinner spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(requireActivity(), R.array.finances, android.R.layout.simple_spinner_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(0);
     }
 }

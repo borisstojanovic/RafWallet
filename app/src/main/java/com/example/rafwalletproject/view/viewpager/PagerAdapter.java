@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.rafwalletproject.view.fragments.AccountFragment;
+import com.example.rafwalletproject.view.fragments.FinancesAddFragment;
 import com.example.rafwalletproject.view.fragments.TabbedListsFragment;
 import com.example.rafwalletproject.view.fragments.UserProfileFragment;
 
@@ -27,8 +28,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case FRAGMENT_1: fragment = new AccountFragment(); break;
-            case FRAGMENT_2: fragment = new UserProfileFragment(); break;
-            default: fragment = new TabbedListsFragment();break;
+            case FRAGMENT_2: fragment = new FinancesAddFragment(); break;
+            case FRAGMENT_3: fragment = new TabbedListsFragment(); break;
+            default: fragment = new UserProfileFragment();break;
         }
         return fragment;
     }
@@ -42,10 +44,10 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch(position){
-            case FRAGMENT_1: return "1";
-            case FRAGMENT_2: return "2";
-            case FRAGMENT_3: return "3";
-            default: return "4";
+            case FRAGMENT_1: return "Account";
+            case FRAGMENT_2: return "Add";
+            case FRAGMENT_3: return "List";
+            default: return "Profile";
         }
     }
 }

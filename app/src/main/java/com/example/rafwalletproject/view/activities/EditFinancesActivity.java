@@ -74,10 +74,20 @@ public class EditFinancesActivity extends AppCompatActivity {
         });
         btnConfirm.setOnClickListener( v -> {
             Intent intent = new Intent();
-            intent.putExtra("title", financesViewModel.getTitle().getValue());
-            intent.putExtra("description", financesViewModel.getDescription().getValue());
-            intent.putExtra("quantity", financesViewModel.getQuantity().getValue());
-            intent.putExtra("finance", financesViewModel.getFinances().getValue());
+            if(financesViewModel.getId().getValue() == null){
+                Toast.makeText(this, "Id is mandatory", Toast.LENGTH_SHORT).show();
+                return;
+            }else if(financesViewModel.getTitle().getValue() == null || financesViewModel.getTitle().getValue().isEmpty()){
+                Toast.makeText(this, "Title is mandatory", Toast.LENGTH_SHORT).show();
+                return;
+            }else if(financesViewModel.getQuantity().getValue() == null || financesViewModel.getQuantity().getValue() == 0){
+                Toast.makeText(this, "Quantity is mandatory", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Finances finances = new Finances(financesViewModel.getId().getValue(), financesViewModel.getDescription().getValue(),
+                    financesViewModel.getIsIncome().getValue(), financesViewModel.getIsAudio().getValue(),
+                    financesViewModel.getTitle().getValue(), financesViewModel.getQuantity().getValue());
+            intent.putExtra("finance", finances);
             setResult(RESULT_OK, intent);
             finish();
         });
