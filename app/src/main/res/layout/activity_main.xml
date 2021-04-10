@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.activities.">
 
-    <com.example.rafwalletproject.view.viewpager.ScrollableViewPager
+    <com.example.rafwalletproject.view.viewpager.NonScrollableViewPager
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"

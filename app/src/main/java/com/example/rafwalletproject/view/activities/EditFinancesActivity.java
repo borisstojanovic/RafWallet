@@ -2,20 +2,36 @@ package com.example.rafwalletproject.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.rafwalletproject.R;
-import com.example.rafwalletproject.viewmodels.SharedFinancesViewModel;
+import com.example.rafwalletproject.models.Finances;
+import com.example.rafwalletproject.view.fragments.FinancesDescriptionFragment;
+import com.example.rafwalletproject.view.fragments.FinancesEditFragment;
+import com.example.rafwalletproject.viewmodels.FinancesViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
 public class EditFinancesActivity extends AppCompatActivity {
-    private SharedFinancesViewModel sharedFinancesViewModel;
+
+    private FinancesViewModel financesViewModel;
+
+    //View
+    private Button btnConfirm, btnCancel;
+    private CheckBox checkBoxAudio;
+    private Fragment audioFragment;
+
 
     private final int PERMISSION_ALL = 1;
     private final String[] PERMISSIONS = {
@@ -26,17 +42,66 @@ public class EditFinancesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_finances);
-        if(hasPermissions(this, PERMISSIONS)) {
-            init();
-        }else {
-            // Ukoliko nije, trazimo ih
-            requestPermissions(PERMISSIONS, PERMISSION_ALL);
+        financesViewModel = new ViewModelProvider(this).get(FinancesViewModel.class);
+        Finances finances = (Finances) getIntent().getExtras().get("finance");
+        if(finances != null){
+            financesViewModel.initFinances(finances);
         }
+        setContentView(R.layout.activity_edit_finances);
+        init();
     }
 
     private void init(){
+        initView();
+        initListeners();
+    }
 
+    private void initView() {
+        btnConfirm = findViewById(R.id.btnConfirmEditFinance);
+        btnCancel = findViewById(R.id.btnCancelEditFinance);
+        checkBoxAudio = findViewById(R.id.checkBoxAudio);
+        audioFragment = new FinancesDescriptionFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.descriptionFcv, audioFragment, "audioFragment");
+        transaction.commit();
+    }
+
+    private void initListeners() {
+        btnCancel.setOnClickListener( v -> {
+            setResult(RESULT_CANCELED);
+            finish();
+        });
+        btnConfirm.setOnClickListener( v -> {
+            Intent intent = new Intent();
+            intent.putExtra("title", financesViewModel.getTitle().getValue());
+            intent.putExtra("description", financesViewModel.getDescription().getValue());
+            intent.putExtra("quantity", financesViewModel.getQuantity().getValue());
+            intent.putExtra("finances", financesViewModel.getFinances().getValue());
+            setResult(RESULT_OK, intent);
+        });
+        checkBoxAudio.setOnClickListener( v -> {
+            if (checkBoxAudio.isChecked()){
+                if(hasPermissions(this, PERMISSIONS)) {
+                    initAudioFragment();
+                }else {
+                    requestPermissions(PERMISSIONS, PERMISSION_ALL);
+                }
+            }else{
+                initTextFragment();
+            }
+        });
+    }
+
+    private void initAudioFragment(){
+        FragmentTransaction transaction = createTransactionWithAnimation();
+        transaction.replace(R.id.descriptionFcv, new FinancesDescriptionFragment());
+        transaction.commit();
+    }
+
+    private void initTextFragment(){
+        FragmentTransaction transaction = createTransactionWithAnimation();
+        transaction.replace(R.id.descriptionFcv, new FinancesEditFragment());
+        transaction.commit();
     }
 
     private boolean hasPermissions(Context context, String... permissions) {
@@ -63,14 +128,19 @@ public class EditFinancesActivity extends AppCompatActivity {
                     }
                 }
                 if (permissionsDenied.toString().length() == 0) {
-                    // Ukoliko nema odbijenih dozvola, nastavljamo dalje
-                    init();
+                    initAudioFragment();
                 } else {
                     Toast.makeText(this, "Missing permissions! " + permissionsDenied.toString(), Toast.LENGTH_LONG).show();
-                    // Ukoliko ima odbijenih dozvola ispisujemo poruku i zatvaramo activity
-                    finish();
+                    checkBoxAudio.setChecked(false);
+                    initTextFragment();
                 }
             }
         }
+    }
+
+    private FragmentTransaction createTransactionWithAnimation() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+        return transaction;
     }
 }

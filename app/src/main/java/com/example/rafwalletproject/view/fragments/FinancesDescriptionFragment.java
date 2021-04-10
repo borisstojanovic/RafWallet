@@ -10,13 +10,19 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.rafwalletproject.R;
+import com.example.rafwalletproject.viewmodels.FinancesViewModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FinancesDescriptionFragment extends Fragment {
+    private FinancesViewModel financesViewModel;
+
     private MediaRecorder mediaRecorder;
     public static File file;
 
@@ -32,9 +38,11 @@ public class FinancesDescriptionFragment extends Fragment {
 
 
     private void init(View view) {
+        financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
         File folder = new File(requireActivity().getFilesDir(), "sounds");
         if(!folder.exists()) folder.mkdir();
-        file = new File(folder, "record.3gp");
+        file = new File(folder, new SimpleDateFormat("ddMMyy-hhmmss.SSS").format(new Date()).toString() + "record.3gp");
+        financesViewModel.setDescription(file.getPath());
         initListeners(view);
     }
 
@@ -67,8 +75,6 @@ public class FinancesDescriptionFragment extends Fragment {
         btnRecording.setOnClickListener(v -> {
             btnMic.setVisibility(View.VISIBLE);
             btnRecording.setVisibility(View.GONE);
-            // Zaustavljamo snimanje i oslobadjamo resurse
-            // Metodom stop() se snimljeni resurs cuva u fajlu koji smo prosledili pri inicijalizaciji mediaRecorder-a
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;

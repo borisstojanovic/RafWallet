@@ -23,10 +23,10 @@ public class FinancesAdapter extends ListAdapter<Finances, FinancesAdapter.ViewH
 
     private final Function<Finances, Void> onFinancesClicked;
     private final Function<Finances, Void> onDeleteButtonClicked;
-    private final Function<Integer, Void> onEditButtonClicked;
+    private final Function<Finances, Void> onEditButtonClicked;
 
     public FinancesAdapter(@NonNull DiffUtil.ItemCallback<Finances> diffCallback, Function<Finances, Void> onFinancesClicked,
-                           Function<Finances, Void> onDeleteButtonClicked, Function<Integer, Void> onEditButtonClicked) {
+                           Function<Finances, Void> onDeleteButtonClicked, Function<Finances, Void> onEditButtonClicked) {
         super(diffCallback);
         this.onFinancesClicked = onFinancesClicked;
         this.onDeleteButtonClicked = onDeleteButtonClicked;
@@ -47,7 +47,7 @@ public class FinancesAdapter extends ListAdapter<Finances, FinancesAdapter.ViewH
             onDeleteButtonClicked.apply(finance);
             return null;
         }, pos -> {
-            onEditButtonClicked.apply(pos);
+            onEditButtonClicked.apply(getItem(pos));
             return null;
         });
     }

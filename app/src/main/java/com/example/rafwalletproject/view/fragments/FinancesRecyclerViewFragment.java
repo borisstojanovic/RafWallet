@@ -80,7 +80,7 @@ public class FinancesRecyclerViewFragment extends Fragment {
             return null;
         }, editFinances -> {
             Intent intent = new Intent(requireActivity(), EditFinancesActivity.class);
-            intent.putExtra("index", editFinances);
+            intent.putExtra("finance", editFinances);
             startActivity(intent);
             return null;
         });
