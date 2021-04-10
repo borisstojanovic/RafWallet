@@ -15,6 +15,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public static final int FRAGMENT_1 = 0;
     public static final int FRAGMENT_2 = 1;
     public static final int FRAGMENT_3 = 2;
+    public static final int FRAGMENT_4 = 3;
 
     public PagerAdapter(@NonNull FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -43,7 +44,8 @@ public class PagerAdapter extends FragmentPagerAdapter {
         switch(position){
             case FRAGMENT_1: return "1";
             case FRAGMENT_2: return "2";
-            default: return "3";
+            case FRAGMENT_3: return "3";
+            default: return "4";
         }
     }
 }

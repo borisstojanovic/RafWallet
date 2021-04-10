@@ -23,11 +23,14 @@ public class FinancesAdapter extends ListAdapter<Finances, FinancesAdapter.ViewH
 
     private final Function<Finances, Void> onFinancesClicked;
     private final Function<Finances, Void> onDeleteButtonClicked;
+    private final Function<Integer, Void> onEditButtonClicked;
 
-    public FinancesAdapter(@NonNull DiffUtil.ItemCallback<Finances> diffCallback, Function<Finances, Void> onFinancesClicked, Function<Finances, Void> onDeleteButtonClicked) {
+    public FinancesAdapter(@NonNull DiffUtil.ItemCallback<Finances> diffCallback, Function<Finances, Void> onFinancesClicked,
+                           Function<Finances, Void> onDeleteButtonClicked, Function<Integer, Void> onEditButtonClicked) {
         super(diffCallback);
         this.onFinancesClicked = onFinancesClicked;
         this.onDeleteButtonClicked = onDeleteButtonClicked;
+        this.onEditButtonClicked = onEditButtonClicked;
     }
 
     @NonNull
@@ -42,6 +45,9 @@ public class FinancesAdapter extends ListAdapter<Finances, FinancesAdapter.ViewH
         }, pos -> {
             Finances finance = getItem(pos);
             onDeleteButtonClicked.apply(finance);
+            return null;
+        }, pos -> {
+            onEditButtonClicked.apply(pos);
             return null;
         });
     }
@@ -58,7 +64,7 @@ public class FinancesAdapter extends ListAdapter<Finances, FinancesAdapter.ViewH
         private final Context context;
 
         public ViewHolder(@NonNull View itemView, Context context, Function<Integer, Void> onItemClicked,
-                          Function<Integer, Void> onDeleteButtonClicked) {
+                          Function<Integer, Void> onDeleteButtonClicked, Function<Integer, Void> onEditButtonClicked) {
             super(itemView);
             this.context = context;
             Button button = itemView.findViewById(R.id.btnDeleteItem);
@@ -67,6 +73,13 @@ public class FinancesAdapter extends ListAdapter<Finances, FinancesAdapter.ViewH
                     onDeleteButtonClicked.apply(getAdapterPosition());
                 }
             });
+
+            itemView.findViewById(R.id.btnEditItem).setOnClickListener(v -> {
+                if(getAdapterPosition() != RecyclerView.NO_POSITION){
+                    onEditButtonClicked.apply(getAdapterPosition());
+                }
+            });
+
             itemView.setOnClickListener(v -> {
                 if(getAdapterPosition() != RecyclerView.NO_POSITION) {
                     onItemClicked.apply(getAdapterPosition());

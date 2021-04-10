@@ -1,5 +1,6 @@
 package com.example.rafwalletproject.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rafwalletproject.R;
+import com.example.rafwalletproject.models.Finances;
+import com.example.rafwalletproject.view.activities.EditFinancesActivity;
 import com.example.rafwalletproject.view.recyclerview.FinancesAdapter;
 import com.example.rafwalletproject.view.recyclerview.FinancesDiffItemCallback;
 import com.example.rafwalletproject.viewmodels.SharedFinancesViewModel;
@@ -35,8 +38,10 @@ public class FinancesRecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Timber.e("ON CREATE VIEW");
-        if(getArguments().get("isIncome") != null) {
+        if(getArguments() != null && getArguments().get("isIncome") != null) {
             isIncome = (boolean) getArguments().get("isIncome");
+        }else{
+            isIncome = false;
         }
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -72,6 +77,11 @@ public class FinancesRecyclerViewFragment extends Fragment {
             return null;
         }, finances -> {
             sharedFinancesViewModel.removeFinance(finances);
+            return null;
+        }, editFinances -> {
+            Intent intent = new Intent(requireActivity(), EditFinancesActivity.class);
+            intent.putExtra("index", editFinances);
+            startActivity(intent);
             return null;
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
