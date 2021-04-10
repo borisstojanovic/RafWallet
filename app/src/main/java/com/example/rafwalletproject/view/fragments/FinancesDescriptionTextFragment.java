@@ -30,7 +30,11 @@ public class FinancesDescriptionTextFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
+        if(getArguments() != null && getArguments().get("isFragment") != null) {
+            financesViewModel = new ViewModelProvider(requireParentFragment()).get(FinancesViewModel.class);
+        }else{
+            financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
+        }
         init(view);
     }
 

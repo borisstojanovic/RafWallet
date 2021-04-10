@@ -49,7 +49,11 @@ public class FinancesDescriptionFragment extends Fragment {
 
 
     private void init(View view) {
-        financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
+        if(getArguments() != null && getArguments().get("isFragment") != null) {
+            financesViewModel = new ViewModelProvider(requireParentFragment()).get(FinancesViewModel.class);
+        }else{
+            financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
+        }
         File folder = new File(requireActivity().getFilesDir(), "sounds");
         if(!folder.exists()) folder.mkdir();
         file = new File(folder, new SimpleDateFormat("ddMMyy-hhmmss.SSS").format(new Date()).toString() + "record.3gp");

@@ -27,7 +27,7 @@ public class FinancesAddInputFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
+        financesViewModel = new ViewModelProvider(requireParentFragment()).get(FinancesViewModel.class);
         init(view);
     }
 

@@ -37,7 +37,7 @@ public class FinancesAddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
+        financesViewModel = new ViewModelProvider(this).get(FinancesViewModel.class);
         sharedFinancesViewModel = new ViewModelProvider(requireActivity()).get(SharedFinancesViewModel.class);
         init(view);
     }
@@ -94,7 +94,8 @@ public class FinancesAddFragment extends Fragment {
     private void resetView(View view){
         CheckBox checkBox = view.findViewById(R.id.checkBoxAddAudio);
         checkBox.setChecked(false);
-        financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
+        getViewModelStore().clear();
+        financesViewModel = new ViewModelProvider(this).get(FinancesViewModel.class);
         financesViewModel.setIsAudio(false);
         initTextFragment();
         initInputFragment();
@@ -102,13 +103,21 @@ public class FinancesAddFragment extends Fragment {
 
     private void initAudioFragment(){
         FragmentTransaction transaction = createTransactionWithAnimation();
-        transaction.replace(R.id.descriptionAddFcv, new FinancesDescriptionFragment());
+        Fragment fragment = new FinancesDescriptionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isFragment", true);
+        fragment.setArguments(bundle);
+        transaction.replace(R.id.descriptionAddFcv, fragment);
         transaction.commit();
     }
 
     private void initTextFragment(){
         FragmentTransaction transaction = createTransactionWithAnimation();
-        transaction.replace(R.id.descriptionAddFcv, new FinancesDescriptionTextFragment());
+        Fragment fragment = new FinancesDescriptionTextFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isFragment", true);
+        fragment.setArguments(bundle);
+        transaction.replace(R.id.descriptionAddFcv, fragment);
         transaction.commit();
     }
 
