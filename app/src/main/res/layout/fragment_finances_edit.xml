@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:text="Quantity:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEditTitleLabel" />
@@ -45,21 +45,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtEditTitle"
+    <EditText
+        android:id="@+id/edtFinanceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
         app:layout_constraintStart_toEndOf="@+id/txtEditTitleLabel"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-    <TextView
-        android:id="@+id/txtEditQuantity"
+    <EditText
+        android:id="@+id/edtFinanceQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/txtEditQuantityLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtEditTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/edtFinanceTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,21 +3,25 @@ package com.example.rafwalletproject.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.File;
+
 public class Finances implements Parcelable {
 
     private int id;
 
     private String description;
     private boolean isIncome;
+    private boolean isAudio;
     private String title;
     private Integer quantity;
 
-    public Finances(int id, String description, boolean isIncome, String title, Integer quantity) {
+    public Finances(int id, String description, boolean isIncome, boolean isAudio, String title, Integer quantity) {
         this.id = id;
         this.description = description;
         this.isIncome = isIncome;
         this.title = title;
         this.quantity = quantity;
+        this.isAudio = isAudio;
     }
 
     public int getId() {
@@ -60,6 +64,14 @@ public class Finances implements Parcelable {
         isIncome = income;
     }
 
+    public void setAudio(boolean audio) {
+        isAudio = audio;
+    }
+
+    public boolean isAudio() {
+        return isAudio;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -72,6 +84,7 @@ public class Finances implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeInt(this.isIncome? 1:0);
+        dest.writeInt(this.isAudio? 1:0);
     }
 
     public static final Parcelable.Creator<Finances> CREATOR
@@ -95,6 +108,12 @@ public class Finances implements Parcelable {
             this.isIncome = false;
         }else{
             this.isIncome = true;
+        }
+        int audio = in.readInt();
+        if(audio == 0){
+            this.isAudio = false;
+        }else{
+            this.isAudio = true;
         }
     }
 }

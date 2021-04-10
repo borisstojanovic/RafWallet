@@ -20,29 +20,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         checkLogin();
     }
 
-    private static int SPLASH_TIME_OUT = 2000;
-
-
     private void checkLogin(){
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
         boolean loggedIn = sharedPreferences.getBoolean("loggedIn", false);
-        /*
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                if(loggedIn){
-                    Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
-                    startActivity(i);
-                }else{
-                    Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
-                    startActivity(i);
-                }
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
-
-         */
         if(loggedIn){
             Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
             startActivity(i);

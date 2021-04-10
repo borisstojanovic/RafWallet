@@ -26,17 +26,15 @@ public class SharedFinancesViewModel extends ViewModel {
         int _incomeSum = 0;
         int _expensesSum = 0;
         for(int i=0; i<=5; i++) {
-            Finances finance = new Finances(counter++, "Income", true, "Income " + i, 100 + i);
+            Finances finance = new Finances(counter++, "Income", true, false, "Income " + i, 100 + i);
             incomeList.add(finance);
             _incomeSum += finance.getQuantity();
         }
         for(int i=0; i<=5; i++) {
-            Finances finance = new Finances(counter++, "Expense", false, "Expense " + i, 100 + i);
+            Finances finance = new Finances(counter++, "Expense", false, false,"Expense " + i, 100 + i);
             expensesList.add(finance);
             _expensesSum += finance.getQuantity();
         }
-        // ovo radimo zato sto cars.setValue u pozadini prvo proverava da li je pokazivac na objekat isti i ako jeste nece uraditi notifyAll
-        // kreiranjem nove liste dobijamo novi pokazivac svaki put
         ArrayList<Finances> listToSubmit = new ArrayList<>(incomeList);
         incomes.setValue(listToSubmit);
         incomeSum.setValue(_incomeSum);
@@ -66,8 +64,8 @@ public class SharedFinancesViewModel extends ViewModel {
         return incomeSum;
     }
 
-    public void addFinance(String title, String description, Integer quantity, boolean isIncome) {
-        Finances finance = new Finances(counter++, description, isIncome, title, quantity);
+    public void addFinance(String title, String description, Integer quantity, boolean isIncome, boolean isAudio) {
+        Finances finance = new Finances(counter++, description, isIncome, isAudio, title, quantity);
         int _incomeSum = incomeSum.getValue();
         int _expensesSum = expensesSum.getValue();
         if(isIncome) {
@@ -99,6 +97,37 @@ public class SharedFinancesViewModel extends ViewModel {
             _expensesSum -= finance.getQuantity();
             expensesSum.setValue(_expensesSum);
             expensesList.remove(finance);
+            ArrayList<Finances> listToSubmit = new ArrayList<>(expensesList);
+            expenses.setValue(listToSubmit);
+        }
+        totalSum.setValue(_incomeSum - _expensesSum);
+    }
+
+    public void editFinance(Finances newFinance){
+        int _incomeSum = incomeSum.getValue();
+        int _expensesSum = expensesSum.getValue();
+        if(newFinance.isIncome()) {
+            for (Finances oldFinance : incomeList) {
+                if(oldFinance.getId() == newFinance.getId()){
+                    _incomeSum += newFinance.getQuantity();
+                    _incomeSum -= oldFinance.getQuantity();
+                    incomeSum.setValue(_incomeSum);
+                    incomeList.set(incomeList.indexOf(oldFinance), newFinance);
+                    break;
+                }
+            }
+            ArrayList<Finances> listToSubmit = new ArrayList<>(incomeList);
+            incomes.setValue(listToSubmit);
+        }else{
+            for (Finances oldFinance : expensesList) {
+                if(oldFinance.getId() == newFinance.getId()){
+                    _expensesSum += newFinance.getQuantity();
+                    _expensesSum -= oldFinance.getQuantity();
+                    expensesSum.setValue(_expensesSum);
+                    expensesList.set(expensesList.indexOf(oldFinance), newFinance);
+                    break;
+                }
+            }
             ArrayList<Finances> listToSubmit = new ArrayList<>(expensesList);
             expenses.setValue(listToSubmit);
         }

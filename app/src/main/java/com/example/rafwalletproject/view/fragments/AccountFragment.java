@@ -39,7 +39,7 @@ public class AccountFragment extends Fragment {
 
     private void initView(View view) {
         view.findViewById(R.id.txtAddD).setOnClickListener(v -> {
-            sharedFinancesViewModel.addFinance("text", "txt", 100, false);
+            sharedFinancesViewModel.addFinance("text", "txt", 100, false, false);
         });
     }
 

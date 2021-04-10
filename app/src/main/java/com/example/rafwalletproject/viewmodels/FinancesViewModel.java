@@ -6,11 +6,15 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.rafwalletproject.models.Finances;
 
+import java.io.File;
+
 public class FinancesViewModel extends ViewModel {
 
     private MutableLiveData<String> title = new MutableLiveData<>();
     private MutableLiveData<String> description = new MutableLiveData<>();
+    private MutableLiveData<String> path = new MutableLiveData<>();
     private MutableLiveData<Integer> quantity = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isAudio = new MutableLiveData<>();
 
     private MutableLiveData<Finances> finances = new MutableLiveData<>();
 
@@ -20,6 +24,10 @@ public class FinancesViewModel extends ViewModel {
 
     public LiveData<String> getDescription() {
         return description;
+    }
+
+    public LiveData<String> getPath() {
+        return path;
     }
 
     public LiveData<Integer> getQuantity() {
@@ -34,10 +42,15 @@ public class FinancesViewModel extends ViewModel {
         return finances;
     }
 
+    public LiveData<Boolean> getIsAudio() {
+        return isAudio;
+    }
+
     public void initFinances(Finances finance){
         this.description.setValue(finance.getDescription());
         this.quantity.setValue(finance.getQuantity());
         this.title.setValue(finance.getTitle());
+        this.isAudio.setValue(finance.isAudio());
 
         finances.setValue(finance);
 
@@ -56,5 +69,20 @@ public class FinancesViewModel extends ViewModel {
     public void setQuantity(Integer quantity) {
         this.quantity.setValue(quantity);
         this.finances.getValue().setQuantity(quantity);
+    }
+
+    public void setIsAudio(Boolean isAudio) {
+        this.isAudio.setValue(isAudio);
+        this.finances.getValue().setAudio(isAudio);
+    }
+
+    public void setPath(String path) {
+        this.path.setValue(path);
+        ///////////////////////////
+        //////////////////////////
+        //////////////////////////////
+        ///////////////////////////////
+        //////////////////////////////
+        this.description.setValue(path);
     }
 }

@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import timber.log.Timber;
+
 public class FinancesDescriptionFragment extends Fragment {
     private FinancesViewModel financesViewModel;
 
@@ -36,19 +38,26 @@ public class FinancesDescriptionFragment extends Fragment {
         init(view);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mediaRecorder != null) {
+            mediaRecorder.stop();
+            mediaRecorder.release();
+        }
+    }
+
 
     private void init(View view) {
         financesViewModel = new ViewModelProvider(requireActivity()).get(FinancesViewModel.class);
         File folder = new File(requireActivity().getFilesDir(), "sounds");
         if(!folder.exists()) folder.mkdir();
         file = new File(folder, new SimpleDateFormat("ddMMyy-hhmmss.SSS").format(new Date()).toString() + "record.3gp");
-        financesViewModel.setDescription(file.getPath());
         initListeners(view);
     }
 
     private void initMediaRecorder(File file) {
         mediaRecorder = new MediaRecorder();
-        // Postavljanje parametara za mediaRecorder
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
@@ -63,7 +72,6 @@ public class FinancesDescriptionFragment extends Fragment {
                 btnMic.setVisibility(View.GONE);
                 btnRecording.setVisibility(View.VISIBLE);
                 initMediaRecorder(file);
-                // Pokrecemo snimanje
                 mediaRecorder.prepare();
                 mediaRecorder.start();
                 ((Chronometer)view.findViewById(R.id.chronometer)).setBase(SystemClock.elapsedRealtime());
@@ -77,6 +85,8 @@ public class FinancesDescriptionFragment extends Fragment {
             btnRecording.setVisibility(View.GONE);
             mediaRecorder.stop();
             mediaRecorder.release();
+            financesViewModel.setDescription(file.getPath());
+            financesViewModel.setIsAudio(true);
             mediaRecorder = null;
             ((Chronometer)view.findViewById(R.id.chronometer)).setBase(SystemClock.elapsedRealtime());
             ((Chronometer)view.findViewById(R.id.chronometer)).stop();

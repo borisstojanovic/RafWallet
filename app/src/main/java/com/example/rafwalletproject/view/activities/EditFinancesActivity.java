@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.rafwalletproject.R;
 import com.example.rafwalletproject.models.Finances;
 import com.example.rafwalletproject.view.fragments.FinancesDescriptionFragment;
-import com.example.rafwalletproject.view.fragments.FinancesEditFragment;
+import com.example.rafwalletproject.view.fragments.FinancesDescriptionTextFragment;
 import com.example.rafwalletproject.viewmodels.FinancesViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +30,6 @@ public class EditFinancesActivity extends AppCompatActivity {
     //View
     private Button btnConfirm, btnCancel;
     private CheckBox checkBoxAudio;
-    private Fragment audioFragment;
 
 
     private final int PERMISSION_ALL = 1;
@@ -60,10 +59,12 @@ public class EditFinancesActivity extends AppCompatActivity {
         btnConfirm = findViewById(R.id.btnConfirmEditFinance);
         btnCancel = findViewById(R.id.btnCancelEditFinance);
         checkBoxAudio = findViewById(R.id.checkBoxAudio);
-        audioFragment = new FinancesDescriptionFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.descriptionFcv, audioFragment, "audioFragment");
-        transaction.commit();
+        if (financesViewModel.getIsAudio().getValue() != null && financesViewModel.getIsAudio().getValue()){
+            checkBoxAudio.setChecked(true);
+            initAudioFragment();
+        }else {
+            initTextFragment();
+        }
     }
 
     private void initListeners() {
@@ -76,8 +77,9 @@ public class EditFinancesActivity extends AppCompatActivity {
             intent.putExtra("title", financesViewModel.getTitle().getValue());
             intent.putExtra("description", financesViewModel.getDescription().getValue());
             intent.putExtra("quantity", financesViewModel.getQuantity().getValue());
-            intent.putExtra("finances", financesViewModel.getFinances().getValue());
+            intent.putExtra("finance", financesViewModel.getFinances().getValue());
             setResult(RESULT_OK, intent);
+            finish();
         });
         checkBoxAudio.setOnClickListener( v -> {
             if (checkBoxAudio.isChecked()){
@@ -100,7 +102,7 @@ public class EditFinancesActivity extends AppCompatActivity {
 
     private void initTextFragment(){
         FragmentTransaction transaction = createTransactionWithAnimation();
-        transaction.replace(R.id.descriptionFcv, new FinancesEditFragment());
+        transaction.replace(R.id.descriptionFcv, new FinancesDescriptionTextFragment());
         transaction.commit();
     }
 

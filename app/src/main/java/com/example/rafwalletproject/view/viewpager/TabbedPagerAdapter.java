@@ -22,17 +22,13 @@ public class TabbedPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment;
-        if (position == FRAGMENT_1) {
-            fragment = new FinancesRecyclerViewFragment();
-            Bundle bundle = new Bundle();
+        fragment = new FinancesRecyclerViewFragment();
+        Bundle bundle = new Bundle();
+        if (position == FRAGMENT_1)
             bundle.putBoolean("isIncome", true);
-            fragment.setArguments(bundle);
-        } else {
-            fragment = new FinancesRecyclerViewFragment();
-            Bundle bundle = new Bundle();
+        else
             bundle.putBoolean("isIncome", false);
-            fragment.setArguments(bundle);
-        }
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -41,12 +37,13 @@ public class TabbedPagerAdapter extends FragmentPagerAdapter {
         return ITEM_COUNT;
     }
 
+
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         switch(position){
-            case FRAGMENT_1: return "1";
-            default: return "2";
+            case FRAGMENT_1: return "Income";
+            default: return "Expense";
         }
     }
 }

@@ -11,4 +11,7 @@
     <string name="total_expenses">Total Expenses:</string>
     <string name="total_income">Total income:</string>
     <string name="total_difference">Total Difference</string>
+    <string name="description">Description</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
 </resources>

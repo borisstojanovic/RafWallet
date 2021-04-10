@@ -56,7 +56,6 @@ public class UserProfileFragment extends Fragment {
     private void init(View view) {
         initViews(view);
         initListeners(view);
-        // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
         editActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
