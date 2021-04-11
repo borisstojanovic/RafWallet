@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RafWalletProject</string>
-    <string name="total_expenses">Rashod:</string>
-    <string name="total_income">Prihod:</string>
+    <string name="total_expenses">Ukupan Rashod:</string>
+    <string name="total_income">Ukupan Prihod:</string>
     <string name="total_difference">Razlika:</string>
+    <string name="description">Opis:</string>
+    <string name="income">Prihod</string>
+    <string name="expense">Rashod</string>
+    <string name="title">Naziv:</string>
+    <string name="quantity">Količina:</string>
+    <string name="finance_data">Podaci o finansijama</string>
+    <string name="audio">Audio</string>
+    <string name="confirm">Potvrdi</string>
+    <string name="account">Racun</string>
+    <string name="add">Dodaj</string>
+    <string name="list">Lista</string>
+    <string name="profile">Profil</string>
+    <string name="cancel">Otkaži</string>
+    <string name="first_name">Ime</string>
+    <string name="last_name">Prezime</string>
+    <string name="bank">Banka</string>
+    <string name="edit_profile">Izmeni Profil</string>
+    <string name="login">Prijavi se</string>
+    <string name="welcome_to_raf_wallet_app">Dobrodošli u Raf Wallet App</string>
+    <string name="user_details">Detalji o korisniku</string>
+    <string name="logout">Odjavi se</string>
+    <string name="user_profile">Profil korisnika</string>
 </resources>

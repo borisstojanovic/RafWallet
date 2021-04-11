@@ -23,6 +23,16 @@
     <string name="add">Add</string>
     <string name="list">List</string>
     <string name="profile">Profile</string>
+    <string name="cancel">Cancel</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="bank">Bank</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="login">Login</string>
+    <string name="welcome_to_raf_wallet_app">Welcome to Raf Wallet App</string>
+    <string name="user_details">User Details</string>
+    <string name="logout">Logout</string>
+    <string name="user_profile">User Profile</string>
     <string-array name="finances">
         <item>Income</item>
         <item>Expense</item>

@@ -14,7 +14,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="60dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -29,7 +29,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="60dp"
-        android:text="Confirm"
+        android:text="@string/confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEditInfo"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="90dp"
-        android:text="First Name"
+        android:text="@string/first_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewEditDescription" />
 
@@ -53,7 +53,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="10dp"
         android:ems="10"
-        android:hint="First Name"
+        android:hint="@string/first_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.711"
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Last Name"
+        android:text="@string/last_name"
         app:layout_constraintStart_toStartOf="@+id/txtEditFirstName"
         app:layout_constraintTop_toBottomOf="@+id/edtEditFirstName" />
 
@@ -76,7 +76,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:ems="10"
-        android:hint="Last Name"
+        android:hint="@string/last_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Bank"
+        android:text="@string/bank"
         app:layout_constraintStart_toStartOf="@+id/txtEditLastName"
         app:layout_constraintTop_toBottomOf="@+id/edtEditLastName" />
 
@@ -99,7 +99,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:ems="10"
-        android:hint="Bank"
+        android:hint="@string/bank"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Edit Profile"
+        android:text="@string/edit_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +130,9 @@
         android:id="@+id/imageView4"
         android:layout_width="107dp"
         android:layout_height="89dp"
-        app:srcCompat="@drawable/ic_baseline_attach_money_24"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="27dp" />
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_attach_money_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>
