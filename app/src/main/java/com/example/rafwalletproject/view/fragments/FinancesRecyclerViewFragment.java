@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -74,6 +76,10 @@ public class FinancesRecyclerViewFragment extends Fragment {
                         }
                     }
                 });
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(view.findViewById(R.id.listRv).getContext(),
+                LinearLayout.VERTICAL);
+        ((RecyclerView)view.findViewById(R.id.listRv)).addItemDecoration(dividerItemDecoration);
+
         initObservers(view);
         initRecycler(view);
     }
