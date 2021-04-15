@@ -71,6 +71,10 @@ public class FinancesAddFragment extends Fragment {
             }else if(financesViewModel.getQuantity().getValue() == null || financesViewModel.getQuantity().getValue() == 0){
                 Toast.makeText(requireActivity(), "Quantity is mandatory", Toast.LENGTH_SHORT).show();
                 return;
+            }else if(financesViewModel.getDescription().getValue() == null){
+                //Toast.makeText(requireActivity(), "Description is mandatory", Toast.LENGTH_SHORT).show();
+                //return;
+                financesViewModel.setDescription("");
             }
             sharedFinancesViewModel.addFinance(financesViewModel.getTitle().getValue(), financesViewModel.getDescription().getValue(),
                     financesViewModel.getQuantity().getValue(), financesViewModel.getIsIncome().getValue(), financesViewModel.getIsAudio().getValue());
