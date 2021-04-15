@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.rafwalletproject"
+        applicationId 'rs.raf.projekat1.boris_stojanovic_rn3518'
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1

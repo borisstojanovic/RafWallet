@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.example.rafwalletproject.view.fragments.FinancesDetailsFragment"
+        android:name="raf.rs.projekat1.boris_stojanovic_rn3518.view.fragments.FinancesDetailsFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
